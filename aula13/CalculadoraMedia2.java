@@ -46,7 +46,7 @@ public class CalculadoraMedia2 {
             input.nextLine(); // Limpar o buffer
 
             // Pergunta o Nome do aluno e armazena no Vetor
-            System.out.println("Nome do Aluno");
+            System.out.printf("Nome do Aluno %d ", j + 1);
             vetorNome[j] = input.nextLine();
             
             float media = 0; // Limpar a variavel
@@ -76,27 +76,32 @@ public class CalculadoraMedia2 {
 
         // Inicio Quarto FOR
         for (int u = 0; u < numAlunos; u++) {
-            // Exibe o Nome do Aluno e a Media 
-            System.out.println("Nome do Aluno(a): " + vetorNome[u]);
-            System.out.println("Média: " + vetorMedia[u]);
+            System.out.println(vetorNome[u]);
+
             
-            // Verificação do estado da Media 
-            if (vetorMedia[u] == notaMinima) {
-                System.out.println(vetorNome[u] + " sua nota está na Média!");
-            } else if (vetorMedia[u] < notaMinima) {
-                System.out.println(vetorNome[u] + " sua nota está abaixo da Média!");
-            } else {
-                System.out.println(vetorNome[u] + " sua nota está acima da Média!");
-            }
-            
-            // Verifica se está aprovado ou não
-            if (vetorMedia[u] <= 2) {
-                System.out.println("Reprovado!");
-            } else if (vetorMedia[u] >= 2.1 && vetorMedia[u] <= 4.9) {
-                System.out.println("Fazer Substituta!");
-            } else {
-                System.out.println("Aprovado!");
-            }
+
         } // Fim Quarto FOR
+
+        // // Exibe o Nome do Aluno e a Media 
+        // System.out.println("Nome do Aluno(a): " + vetorNome[u]);
+        // System.out.println("Média: " + vetorMedia[u]);
+        
+        // // Verificação do estado da Media 
+        // if (vetorMedia[u] == notaMinima) {
+        //     System.out.println(vetorNome[u] + " sua nota está na Média!");
+        // } else if (vetorMedia[u] < notaMinima) {
+        //     System.out.println(vetorNome[u] + " sua nota está abaixo da Média!");
+        // } else {
+        //     System.out.println(vetorNome[u] + " sua nota está acima da Média!");
+        // }
+        
+        // // Verifica se está aprovado ou não
+        // if (vetorMedia[u] <= 2) {
+        //     System.out.println("Reprovado!");
+        // } else if (vetorMedia[u] >= 2.1 && vetorMedia[u] <= 4.9) {
+        //     System.out.println("Fazer Substituta!");
+        // } else {
+        //     System.out.println("Aprovado!");
+        // }
     } 
 }
