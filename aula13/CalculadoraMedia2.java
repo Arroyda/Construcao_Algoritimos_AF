@@ -1,10 +1,8 @@
-package aula12;
-
+package aula13;
 
 import java.util.Scanner;
 
-public class CalculadoraMedia {
-
+public class CalculadoraMedia2 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         float notaMinima;
