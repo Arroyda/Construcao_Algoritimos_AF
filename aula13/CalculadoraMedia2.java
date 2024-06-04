@@ -1,4 +1,4 @@
-package aula13;
+package Aula13;
 
 import java.util.Scanner;
 
@@ -6,12 +6,12 @@ public class CalculadoraMedia2 {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        float notaMinima; // Armazena o valor da nota minima 
-        float nota; // Armazena o valor da nota 
-        String nomeAvaliacao = ""; // Armazena o Nome da Avaliação
-        String nome = " ";
+        float notaMinima;           // Armazena o valor da nota minima 
+        float nota;                 // Armazena o valor da nota 
+        String nomeAvaliacao = "";  // Armazena o Nome da Avaliação
+        String nome = " ";          // Armazena o Nome do Aluno
         boolean encontrado = false; // Variavel para verificar a entrada do usuario 
-        int numAlunos, numNotas; // Armazena numero de alunos e notas
+        int numAlunos, numNotas;    // Armazena numero de alunos e notas
         
         // Pergunta qual a nota minima e armazena ela 
         System.out.println("Qual a nota mínima?");
@@ -21,9 +21,12 @@ public class CalculadoraMedia2 {
         System.out.println("Quantos alunos serão avaliados?");
         numAlunos = input.nextInt();
         
-         // Pergunta quantas notas serão avaliados e armazena elas 
+         // Pergunta quantas notas serão avaliadas e armazena elas 
         System.out.println("Quantas notas serão inseridas? ");
         numNotas = input.nextInt();
+        
+        // Cria a matriz para armazenar as notas de todos os alunos
+        float[][] matrizNotas = new float[numAlunos][numNotas]; // Apenas as notas, nomes separados
         
         // Cria o vetor de Pesos
         float[] vetorPesos = new float[numNotas];
@@ -37,7 +40,7 @@ public class CalculadoraMedia2 {
         // Primeiro FOR
         for (int l = 0; l < numNotas; l++) {
             // Pergunta o valor dos Pesos e armazena eles no Vetor
-            System.out.printf("Valor Peso %d ", l + 1);
+            System.out.printf("Valor Peso %d: ", l + 1);
             vetorPesos[l] = input.nextFloat(); 
          } // Fim Primeiro FOR
         
@@ -45,10 +48,8 @@ public class CalculadoraMedia2 {
         
         //  Inicio Segundo FOR
         for (int j = 0; j < numAlunos; j++) {
-            input.nextLine(); // Limpar o buffer
-
             // Pergunta o Nome do aluno e armazena no Vetor
-            System.out.printf("Nome do Aluno %d ", j + 1);
+            System.out.printf("Nome do Aluno %d: ", j + 1);
             vetorNome[j] = input.nextLine();
             
             float media = 0; // Limpar a variavel
@@ -63,17 +64,17 @@ public class CalculadoraMedia2 {
                 System.out.printf("Nota %d: ", i + 1);
                 nota = input.nextFloat(); 
                 
+                // Armazena a nota na matriz de notas
+                matrizNotas[j][i] = nota;
+                
                 // Faz o calculo da media
                 media += nota * vetorPesos[i];
+                input.nextLine(); // Limpar o buffer
             } // Fim Terceiro FOR 
             
-            // Registra a Media dentro do Vetor
+            // Armazena a média no vetor de medias
             vetorMedia[j] = media;
         } 
-
-        
-
-        input.nextLine(); // Limpar o buffer
 
         // Inicia a Lista de Alunos com os Resultados
         System.out.println("Lista de Alunos:");
@@ -83,51 +84,59 @@ public class CalculadoraMedia2 {
             System.out.println(vetorNome[u]);
         } // Fim Quarto FOR
 
-        // Loop para verificar os nomes dos alunos
+        // Loop para perguntar ao usuário se ele deseja consultar a nota de um aluno em especial
+        String opcao;
         do {
-            encontrado = false; // Define como falso inicialmente
+            System.out.println("Deseja consultar a nota de um aluno? (S/N)");
+            opcao = input.nextLine();
 
-            // Solicita que o usuário digite o nome do aluno
-            System.out.println("Digite o Nome do Aluno:");
-            String entradaUsuario = input.nextLine();
+            if (opcao.equalsIgnoreCase("S")) {
+                encontrado = false; // Define como falso inicialmente
 
-            // Percorre o vetor de nomes para verificar se a entrada do usuário corresponde a algum nome
-            for (int t = 0; t < numAlunos; t++) {
-                if (entradaUsuario.equals(vetorNome[t])) {
-                    encontrado = true; // Define como verdadeiro se o nome for encontrado
+                // Solicita que o usuário digite o nome do aluno
+                System.out.println("Digite o Nome do Aluno:");
+                String entradaUsuario = input.nextLine();
 
-                    // Exibe o Nome do Aluno e a Média
-                    System.out.println("Nome do Aluno(a): " + entradaUsuario);
-                    System.out.println("Média: " + vetorMedia[t]);
+                // Percorre o vetor de nomes para verificar se a entrada do usuário corresponde a algum nome
+                for (int t = 0; t < numAlunos; t++) {
+                    if (entradaUsuario.equalsIgnoreCase(vetorNome[t])) {
+                        encontrado = true; // Define como verdadeiro se o nome for encontrado
 
-                    // Verifica o estado da média
-                    if (vetorMedia[t] == notaMinima) {
-                        System.out.println(vetorNome[t] + " sua nota está na Média!");
-                    } else if (vetorMedia[t] < notaMinima) {
-                        System.out.println(vetorNome[t] + " sua nota está abaixo da Média!");
-                    } else {
-                        System.out.println(vetorNome[t] + " sua nota está acima da Média!");
+                        // Exibe o Nome do Aluno(a) e a Média
+                        System.out.println("Nome do Aluno(a): " + vetorNome[t]);
+                        System.out.println("Média: " + vetorMedia[t]);
+
+                        // Verifica o estado da média
+                        if (vetorMedia[t] == notaMinima) {
+                            System.out.println(vetorNome[t] + " sua nota está na Média!");
+                        } else if (vetorMedia[t] < notaMinima) {
+                            System.out.println(vetorNome[t] + " sua nota está abaixo da Média!");
+                        } else {
+                            System.out.println(vetorNome[t] + " sua nota está acima da Média!");
+                        }
+
+                        // Verifica se está aprovado ou não
+                        if (vetorMedia[t] <= 2) {
+                            System.out.println("Reprovado!");
+                        } else if (vetorMedia[t] >= 2.1 && vetorMedia[t] <= 4.9) {
+                            System.out.println("Fazer Substituta!");
+                        } else {
+                            System.out.println("Aprovado!");
+                        }
+
+                        // Sai do loop assim que o nome for encontrado
+                        break;
                     }
+                }
 
-                    // Verifica se está aprovado ou não
-                    if (vetorMedia[t] <= 2) {
-                        System.out.println("Reprovado!");
-                    } else if (vetorMedia[t] >= 2.1 && vetorMedia[t] <= 4.9) {
-                        System.out.println("Fazer Substituta!");
-                    } else {
-                        System.out.println("Aprovado!");
-                    }
-
-                    // Sai do loop assim que o nome for encontrado
-                    break;
+                // Se o nome do aluno não for encontrado, informa ao usuário
+                if (!encontrado) {
+                    System.out.println("Nome não encontrado, por favor digite corretamente!");
                 }
             }
+        } while (!opcao.equalsIgnoreCase("N")); // Continua o loop enquanto o usuário não escolher encerrar o programa
 
-            // Se o nome do aluno não for encontrado, solicita que o usuário digite novamente
-            if (!encontrado) {
-                System.out.println("Nome não encontrado, por favor digite corretamente!");
-            }
-        } while (!encontrado); // Continua o loop enquanto o nome do aluno não for encontrado
-
+        // Fechar o Scanner
+        input.close();
     } 
 }
